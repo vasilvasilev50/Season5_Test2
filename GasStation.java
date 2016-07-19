@@ -1,11 +1,12 @@
 package salesVignettes;
 
-import java.util.Arrays;
+//import java.util.Arrays;
 import salesVignettes.Vignette;
+import salesVignettes.*;
 
 public class GasStation {
 
-	static int NUMBER_OF_VIGNETTES = 1000;
+	static int NUMBER_OF_VIGNETTES = 10000;
 	private float dailyTurnover;
 	private Vignette[] availableVignettes;
 
@@ -27,23 +28,44 @@ public class GasStation {
 			}
 		}
 		SortVignettes.quickSort(availableVignettes, 0, availableVignettes.length - 1);
+		printInfo();
+	}
+
+	public void printInfo() {
+		System.out.println("Gas station daily turnover: " + this.dailyTurnover);
 		for (int index = 0; index < availableVignettes.length; index++) {
-			System.out.print(
-					availableVignettes[index].getColor() + " " + availableVignettes[index].getPrice() + " EUR. ");
+			if (availableVignettes[index] != null) {
+				System.out.print(availableVignettes[index].getColor() + " " + availableVignettes[index].getPrice() + " EUR. ");
+			} else {
+				System.out.print("null ");
+			}
 		}
+		System.out.println();
 	}
 	
 	public Vignette sale(Vehicle vehicle, char duration, int day, int month, int year) {
 		if (vehicle!= null) {
+			int timeToStuck = 0;
+			if (vehicle instanceof Car) {
+				timeToStuck = Vignette.TIME_TO_STUCK_CAR_VIGNETTE;
+			}
+			if (vehicle instanceof Truck) {
+				timeToStuck = Vignette.TIME_TO_STUCK_TRUCK_VIGNETTE;
+			}
+			if (vehicle instanceof Bus) {
+				timeToStuck = Vignette.TIME_TO_STUCK_BUS_VIGNETTE;
+			}
 				for (int index = 0; index < availableVignettes.length; index++) {
 					if (availableVignettes[index] != null && availableVignettes[index].getDuration() == duration  
-						&& availableVignettes[index].toBeStuck(vehicle) == Vignette.TIME_TO_STUCK_CAR_VIGNETTE) {
+						&& availableVignettes[index].toBeStuck() == timeToStuck) {
 						availableVignettes[index].setDay(day);
 						availableVignettes[index].setMonth(month);
 						availableVignettes[index].setYear(year);
 						dailyTurnover += availableVignettes[index].getPrice();
-						availableVignettes = SortVignettes.bubbleSort(availableVignettes);
-						return availableVignettes[index];
+						Vignette temp = availableVignettes[index];
+						availableVignettes[index] = null;
+						SortVignettes.bubbleSort(this.availableVignettes);
+						return temp;
 				}
 			}
 		}

@@ -19,7 +19,6 @@ public class Vehicle {
 	
 	@Override
 	public String toString() {
-		System.out.println();
 		if (this.vignette != null) {
 			return this.model + " " + this.yearOfManufacture + " " + this.vignette.getColor() + " "
 					+ this.vignette.getPrice();

@@ -3,8 +3,8 @@ package salesVignettes;
 public class CarVignette extends Vignette {
 
 	private static final int DAILY_PRICE = 5;
-	private static final int MONTHLY_PRICE = DAILY_PRICE*MONTHLY_APPRECIATION;
-	private static final int YEARLY_PRICE = MONTHLY_PRICE*YEARLI_APPRECIATION;
+	private static final int MONTHLY_PRICE = DAILY_PRICE * MONTHLY_APPRECIATION;
+	private static final int YEARLY_PRICE = MONTHLY_PRICE * YEARLI_APPRECIATION;
 
 	public CarVignette(char duration) {
 		super(duration);
@@ -23,8 +23,9 @@ public class CarVignette extends Vignette {
 			return CarVignette.YEARLY_PRICE;
 		}
 		return 0;
-		
+
 	}
 
+	
 
 }
